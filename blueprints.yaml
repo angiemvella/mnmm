@@ -1,0 +1,8 @@
+name: MNMM
+version: 1.0.0
+description: "A simple blog theme for Grav"
+author:
+    name: Angie Vella
+    email: email@email.com
+    url: http://www.website.com
+license: MIT

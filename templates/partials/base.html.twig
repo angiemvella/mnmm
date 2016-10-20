@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="{{ theme_config.default_lang }}">
+
+    <head>
+        {% block head %}
+        <title>{{ site.title }}</title>
+
+        <link rel="canonical" href="{{ page.url(true, true) }}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon.png') }}">
+
+        {% block stylesheets %}
+            {% do assets.addCss('theme://css/main.css') %}
+            {% do assets.addCss('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700') %}
+        {% endblock %}
+
+        {{ assets.css() }}
+
+        {% block javascripts %}
+            {% do assets.addJs('jquery', '110') %}
+
+            {% do assets.addJs('theme://js/singlepagenav.min.js') %}
+
+            {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+                {% do assets.add('theme://js/html5shiv.min.js') %}
+                {% do assets.add('theme://js/respond.min.js') %}
+            {% endif %}
+        {% endblock %}
+
+        {{ assets.js() }}
+
+        {% endblock head %}
+    </head>
+
+    <body>
+
+        <header class="main-header">
+            <nav class="main-nav">
+                <div class="wrapper">
+                    <div class="logo"><a href="{{ base_url}}">MNMM</a></div>
+
+                    <div class="search">
+                        {% if config.plugins.simplesearch.enabled %}
+                            {% include 'partials/simplesearch_searchbox.html.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+            <div class="site-title">
+                <div class="wrapper">
+                    <h1>{{ site.title }}</h1>
+                </div>
+            </div>
+        </header>
+
+        <section class="main-wrapper">
+            {% block content %}{% endblock %}
+        </section>
+
+        {% block footer %}
+        <footer class="main-footer">
+            <div class="wrapper">
+                <span class="credits">&#169;<script type="text/javascript">document.write(new Date().getFullYear());</script> MNMM Grav Theme.</span>
+
+                <span class="icons">
+                    <a class="button" href=""><i class="fa fa-facebook-square"></i></a>
+                    <a class="button" href=""><i class="fa fa-twitter-square"></i></a>
+                    <a class="button" href=""><i class="fa fa-google-plus-square"></i></a>
+                    <a class="button" href=""><i class="fa fa-pinterest-square"></i></a>
+                    <a class="button" href=""><i class="fa fa-linkedin-square"></i></a>
+                    <a class="button" href=""><i class="fa fa-instagram"></i></a>
+                    <a class="button" href=""><i class="fa fa-github-square"></i></a>
+
+                    {% if config.plugins.feed.enabled %}
+                        <a class="button" href="{{ feed_url }}.atom"><i class="fa fa-rss-square"></i></a>
+                        <!--<a class="button" href="{{ feed_url }}.rss"><i class="fa fa-rss-square"></i> RSS</a>-->
+                    {% endif %}
+                </span>
+            </div>
+        </footer>
+        {% endblock %}
+
+        {% block bottom %}
+            {{ assets.js('bottom') }}
+        {% endblock %}
+    </body>
+</html>
